@@ -1,0 +1,11 @@
+2
+2x = 2
+2x + 2 = 10
+
+<expr> := <num>
+		| <coef> 
+		| <expr> + <expr> 
+		| <expr> - <expr> 
+
+
+<expr_final> := <expr> = <num>
