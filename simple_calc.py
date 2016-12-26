@@ -25,12 +25,15 @@ def BNF():
 	return bnf
 
 
-def handle_coef(parsed_expr):
+def handle_terms(parsed_expr):
  	coef_list = []
+ 	numbers = []
  	for st in parsed_expr:
  		if st.find("x") > -1:
  			coef_list.append(st)
- 	return coef_list
+ 		else
+ 			numbers.append(st)
+ 	
 
 
 
