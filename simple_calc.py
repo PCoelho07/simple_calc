@@ -2,23 +2,39 @@
 
 from pyparsing import *
 
-expr = Forward()
-expr_final = Forward()
+def BNF():
+	global bnf
 
-coef = Word(nums) + Word(alphas)
-numero = Word(nums)
-espacos = OneOrMore(White()).suppress()
-mais = Literal('+')
-menos = Literal('-')
-igual = Literal('=')
-operator = mais | menos
+	coef = Combine(Word(nums) + Word(alphas))
+	numero = Word(nums)
+	espacos = OneOrMore(White()).suppress()
+	mais = Literal('+')
+	menos = Literal('-')
+	igual = Literal('=')
+	operator = (mais | menos)
+	atomo = (coef | numero)
 
-atomo = numero | coef
+	expr = Forward()
+	expr_final = Forward()
 
-expr << ( atomo |
-		 atomo + espacos + operator + espacos + atomo)
+	expr <<	atomo + ZeroOrMore(operator + atomo)
 
-expr_final << (Group(expr) + espacos + igual + espacos + numero)
+	expr_final << expr + igual + numero
+
+	bnf = expr_final
+	return bnf
+
+
+def handle_coef(parsed_expr):
+ 	coef_list = []
+ 	for st in parsed_expr:
+ 		if st.find("x") > -1:
+ 			coef_list.append(st)
+ 	return coef_list
+
+
+
+
 
 op = {
 	'+': lambda x, y: x + y,
@@ -27,4 +43,6 @@ op = {
 
 
 
-print expr_final.parseString(raw_input('Digite a equacao: '))
+if '__name__' == '__main__':
+	psrd_expr = BNF().parseString(raw_input('Digite a equacao: '))
+	print handle_coef(psrd_expr)

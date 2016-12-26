@@ -1,11 +1,11 @@
-2
-2x = 2
-2x + 2 = 10
 
-<expr> := <num>
-		| <coef> 
-		| <expr> + <expr> 
-		| <expr> - <expr> 
+<num> := integer
+<alpha> := caractere
+<coef> := <num> + <alpha>
+<atom> := <num> | <coef>
+<expr> := <atom>
+		| <expr> <operator> <expr> 
+		| <expr> <operator> <expr> 
 
 
-<expr_final> := <expr> = <num>
+<expr_final> := <expr> "=" <num>
