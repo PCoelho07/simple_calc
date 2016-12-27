@@ -31,9 +31,10 @@ def handle_terms(parsed_expr):
  	for st in parsed_expr:
  		if st.find("x") > -1:
  			coef_list.append(st)
- 		else
+ 		elif isinstance(int(st), int) :
  			numbers.append(st)
  	
+ 	return numbers, coef_list
 
 
 
@@ -46,6 +47,6 @@ op = {
 
 
 
-if '__name__' == '__main__':
+if __name__ == '__main__':
 	psrd_expr = BNF().parseString(raw_input('Digite a equacao: '))
-	print handle_coef(psrd_expr)
+	print handle_terms(psrd_expr)
